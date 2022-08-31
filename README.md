@@ -125,3 +125,8 @@ If `make check` target is successful, developer is good to commit the code to pr
 - runs `conftests`. `conftests` make sure `policy` checks are successful.
 - runs `terratest`. This is integration test suit.
 - runs `opa` tests
+
+## Manually run tests
+Navigate to the folder containing the tests `tests/post_deploy_functional` and run the command `go test -v -timeout 30m`. It is advisible to increase the timeout as the default timeout is `10 minutes`. The actual tests in some cases can take longer and result in abrupt timeout and not allowing the destroy code to be run. In that case, user needs to manually delete all the resources.
+
+Note: `terratest` creates the tmp directory inside `/var/folders` to run terraform commands. In case of timeouts or any other issue where the resources are not successfully destroyed, users can navigate to the temporary directory to run the `terraform destroy` manually

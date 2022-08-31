@@ -17,6 +17,11 @@ output "resource_names" {
   value       = { for key, val in module.resource_name : key => val.standard }
 }
 
+output "resource_group_names" {
+  description = "Map of region to resource_group_name"
+  value       = { for key, value in module.resource_group : key => value.resource_group.name }
+}
+
 # Key Vault related outputs
 
 output "key_vault_ids" {
@@ -55,6 +60,11 @@ output "key_ids" {
 output "web_app_ids" {
   description = "Map of region to web-app ids"
   value       = { for key, value in module.web_app : key => value.web_app_id }
+}
+
+output "web_app_names" {
+  description = "Map of region to web-app names"
+  value       = { for key, value in module.web_app : key => value.web_app_name }
 }
 
 output "default_host_names" {
@@ -99,6 +109,11 @@ output "storage_account_ids" {
   value       = { for key, value in module.storage_account : key => nonsensitive(value.storage_account.id) }
 }
 
+output "storage_account_names" {
+  description = "Map of region to storage account ids"
+  value       = { for key, value in module.storage_account : key => nonsensitive(value.storage_account.name) }
+}
+
 output "storage_shares" {
   description = "Map of region to storage shares list for a specific storage account"
   value       = { for key, value in module.storage_account : key => value.storage_shares }
@@ -132,7 +147,7 @@ output "backend_pools" {
 }
 
 output "frontend_endpoints" {
-  description = "List of front-end endpoints for the front-door instance. Multiple values if custom domains are attached to the front-door"
+  description = "Map of front-end endpoint name to ids for the front-door instance. Multiple values if custom domains are attached to the front-door"
   value       = module.front_door.frontend_endpoints
 }
 
