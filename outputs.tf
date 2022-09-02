@@ -55,7 +55,7 @@ output "key_ids" {
   value       = { for key, value in module.key_vault : key => value.key_ids }
 }
 
-# Web App related outputs 
+# Web App related outputs
 
 output "web_app_ids" {
   description = "Map of region to web-app ids"
