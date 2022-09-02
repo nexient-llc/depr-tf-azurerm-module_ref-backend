@@ -113,7 +113,6 @@ module "web_app" {
   service_plan                   = local.service_plans[each.value]
   container_registry             = var.container_registry
   web_app_name                   = module.resource_name["web_app-${each.value}"].recommended_per_length_restriction
-  enabled                        = var.enabled
   https_only                     = var.https_only
   storage_mounts                 = var.storage_mounts
   application_stack              = var.application_stack

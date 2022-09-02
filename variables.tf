@@ -384,12 +384,6 @@ variable "container_registry" {
   }
 }
 
-variable "enabled" {
-  description = "Switch to enable linux web-app. Default is true"
-  type        = bool
-  default     = true
-}
-
 variable "https_only" {
   description = "Switch for the flag https_only. Default is false"
   type        = bool
@@ -579,8 +573,6 @@ variable "backend_pool" {
   type = object({
     backends = map(object({
       enabled = bool
-      # address     = string # Address must be a valid DNS or IP Address
-      # host_header = string
       http_port  = number
       https_port = number
       priority   = number
