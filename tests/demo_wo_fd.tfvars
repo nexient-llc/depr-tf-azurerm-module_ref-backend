@@ -1,6 +1,6 @@
-backend_regions = ["eastus", "westus"]
+backend_regions = ["westus"]
 
-logical_product_name  = "demo"
+logical_product_name  = "democron"
 class_env             = "dev"
 instance_resource     = 2
 use_azure_region_abbr = "true"
@@ -90,7 +90,7 @@ certificates = {
 
 secrets = {
   db_name  = "vanilla-vc-dev"
-  password = "my-secret-password" # pragma: allowlist secret
+  password = "my-secret-password"
   username = "my-db-username"
 }
 
@@ -106,8 +106,8 @@ docker_image_name = "python-docker"
 docker_image_tag  = "1.2.0"
 
 application_settings = {
-  provisioner = "Terraform"
-  # WEBSITES_PORT = 5000
+  provisioner  = "Terraform"
+  DISABLE_CRON = "false"
 }
 
 site_config = {
@@ -141,66 +141,4 @@ storage_mounts = {
 }
 
 # Front door
-backend_pool = {
-  backends = {
-    eastus = {
-      enabled    = true
-      http_port  = 80
-      https_port = 443
-      priority   = 1
-      weight     = 50
-    }
-    westus = {
-      enabled    = true
-      http_port  = 80
-      https_port = 443
-      priority   = 1
-      weight     = 50
-    }
-  }
-  health_probe = {
-    # Can only be disabled when there is 1 backend
-    enabled      = true
-    path         = "/"
-    name         = "dummy-health-probe"
-    probe_method = "GET"
-    protocol     = "Https"
-  }
-  load_balancing = {
-    name                        = "dummy-load-balancer"
-    sample_size                 = 4
-    successful_samples_required = 2
-    additional_latency_ms       = 0
-  }
-
-}
-forwarding_configurations = {
-  cache_duration                        = null
-  cache_enabled                         = false
-  cache_query_parameter_strip_directive = "StripAll"
-  cache_query_parameters                = []
-  cache_use_dynamic_compression         = false
-  custom_forwarding_path                = ""
-  forwarding_protocol                   = "MatchRequest"
-
-}
-
-frontend_endpoints = {
-  azurecdn-dsahoo-com = {
-    create_record = false
-    endpoint_name = "azurecdn-dsahoo-com"
-    record_name   = "azurecdn.dsahoo.com"
-    record_type   = "CNAME"
-    dns_zone      = null
-    dns_rg        = null
-  }
-}
-
-custom_user_managed_certs = {
-  "azurecdn-dsahoo-com" = {
-    # pragma: allowlist secret
-    certificate_secret_name    = "azurecdn-dsahoo-com" # pragma: allowlist secret
-    certificate_secret_version = ""
-    https_enabled              = true
-  }
-}
+front_door_enabled = false
