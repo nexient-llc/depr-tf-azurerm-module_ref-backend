@@ -77,26 +77,26 @@ locals {
   # construct the backend pool
 
   # inject the address and host_header from web_app module
-  backends = {
+  backends = var.front_door_enabled ? {
     for key, backend in var.backend_pool.backends :
     key => merge(backend, {
       address     = module.web_app[key].default_host_name
       host_header = module.web_app[key].default_host_name
     })
-  }
+  } : {}
   # This module just supports 1 backend pool
-  backend_pools = {
+  backend_pools = var.front_door_enabled ? {
     default-backend-pool = {
       backends       = local.backends
       health_probe   = var.backend_pool.health_probe
       load_balancing = var.backend_pool.load_balancing
     }
-  }
+  } : {}
 
   # Forwarding configuration for the default-backend-pool
-  forwarding_configurations = {
+  forwarding_configurations = var.front_door_enabled ? {
     default-backend-pool = var.forwarding_configurations
-  }
+  } : {}
 
   # Default routing rule name
   routing_rule_name = "default-routing-rule"

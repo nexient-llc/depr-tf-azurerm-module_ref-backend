@@ -148,6 +148,7 @@ module "web_app" {
 
 module "front_door" {
   source = "git@github.com:nexient-llc/tf-azurerm-module-front_door.git?ref=0.1.0"
+  count  = var.front_door_enabled ? 1 : 0
 
   resource_group            = local.resource_groups[local.primary_region]
   front_door_name           = module.resource_name["front_door-${local.primary_region}"].recommended_per_length_restriction

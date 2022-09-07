@@ -133,25 +133,25 @@ output "storage_queues" {
 
 output "front_door_name" {
   description = "Name of the front-door instance"
-  value       = module.front_door.front_door_name
+  value       = try(module.front_door[0].front_door_name, "")
 }
 
 output "front_door_id" {
   description = "Id of the front-door instance"
-  value       = module.front_door.front_door_id
+  value       = try(module.front_door[0].front_door_id, "")
 }
 
 output "backend_pools" {
   description = "List of backend pools for the front-door. In this case, the list would contain only one backend pool"
-  value       = module.front_door.backend_pools
+  value       = try(module.front_door[0].backend_pools, [])
 }
 
 output "frontend_endpoints" {
   description = "Map of front-end endpoint name to ids for the front-door instance. Multiple values if custom domains are attached to the front-door"
-  value       = module.front_door.frontend_endpoints
+  value       = try(module.front_door[0].frontend_endpoints, {})
 }
 
 output "routing_rules" {
-  description = "List of routing rules for the front-door instance"
-  value       = module.front_door.routing_rules
+  description = "Map of routing rule ID to enabled flag for the front-door instance"
+  value       = try(module.front_door[0].routing_rules, {})
 }

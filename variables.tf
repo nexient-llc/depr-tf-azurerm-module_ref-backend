@@ -556,6 +556,12 @@ variable "deployment_slots" {
 # Variables associated with Front Door module
 ########################################################
 
+variable "front_door_enabled" {
+  description = "Whether front door should be enabled for this module?"
+  type        = bool
+  default     = true
+}
+
 variable "friendly_name" {
   description = "A friendly name to be attached to the front-door"
   default     = ""
@@ -572,7 +578,7 @@ variable "backend_pool" {
   description = "Backend pool for the front-door. This module supports only 1 pool. Each pool must have at least one backend (enabled). Backend must have the same keys as variable 'backend_regions'. Backend - address and host_header would be injected in locals file. Each backend must have a health probe and a load balancing."
   type = object({
     backends = map(object({
-      enabled = bool
+      enabled    = bool
       http_port  = number
       https_port = number
       priority   = number
@@ -592,7 +598,7 @@ variable "backend_pool" {
       additional_latency_ms       = number # defaults to 0
     })
   })
-
+  default = null
 
 }
 
@@ -642,7 +648,7 @@ variable "forwarding_configurations" {
     custom_forwarding_path                = string
     forwarding_protocol                   = string # defaults to HttpsOnly
   })
-
+  default = null
 }
 
 variable "redirect_configurations" {
