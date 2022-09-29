@@ -16,7 +16,7 @@ data "azurerm_client_config" "current" {
 }
 
 module "resource_name" {
-  source = "github.com/nexient-llc/tf-module-resource_name.git?ref=0.1.0"
+  source = "github.com/nexient-llc/tf-module-resource_name.git?ref=0.2.0"
 
   for_each = local.all_resource_types
 
