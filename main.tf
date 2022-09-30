@@ -103,7 +103,7 @@ module "service_plan" {
 }
 
 module "web_app" {
-  source = "git@github.com:nexient-llc/tf-azurerm-module-linux_web_app.git?ref=0.1.0"
+  source = "github.com/nexient-llc/tf-azurerm-module-linux_web_app.git?ref=0.1.0"
 
   for_each = toset(var.backend_regions)
 
@@ -147,7 +147,7 @@ module "web_app" {
 }
 
 module "front_door" {
-  source = "git@github.com:nexient-llc/tf-azurerm-module-front_door.git?ref=0.1.0"
+  source = "github.com/nexient-llc/tf-azurerm-module-front_door.git?ref=0.1.0"
   count  = var.front_door_enabled ? 1 : 0
 
   resource_group            = local.resource_groups[local.primary_region]
