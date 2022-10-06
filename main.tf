@@ -103,7 +103,7 @@ module "service_plan" {
 }
 
 module "web_app" {
-  source = "github.com/nexient-llc/tf-azurerm-module-linux_web_app.git?ref=0.1.0"
+  source = "github.com/nexient-llc/tf-azurerm-module-linux_web_app.git?ref=0.1.2"
 
   for_each = toset(var.backend_regions)
 
